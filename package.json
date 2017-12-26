@@ -1,0 +1,16 @@
+{
+  "name": "3003",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/nodemon ./server"
+  },
+  "author": "singcl",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.12.1",
+    "nodemon": "^1.14.3"
+  }
+}
