@@ -7,6 +7,19 @@ const middlewares = jsonServer.defaults({noCors: true});
 const notFound = require('./middlewares/not-found/not-found');
 const exphbs = require('express-handlebars');
 
+// 模板引擎设置 START======================================================================================
+server.set('views', path.join(__dirname, 'views')); //path.join() 将path片段拼成规范的路径  放模板文件的目录
+server.engine(
+    'hbs',
+    exphbs({
+        //添加引擎
+        layoutsDir: path.join(__dirname, 'views', 'layouts'),
+        defaultLayout: 'main', //（默认打开的模板）
+        extname: '.hbs'
+    })
+);
+server.set('view engine', 'hbs'); //调用render函数时，自动添加hannlebars后缀  模板引擎
+// 模板引擎设置 END======================================================================================
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -42,20 +55,9 @@ server.use(
     })
 );
 
-// 模板引擎设置 START======================================================================================
-server.set('views', path.join(__dirname, 'views')); //path.join() 将path片段拼成规范的路径  放模板文件的目录
-server.engine(
-    'hbs',
-    exphbs({
-        //添加引擎
-        layoutsDir: path.join(__dirname, 'views', 'layouts'),
-        defaultLayout: 'main', //（默认打开的模板）
-        extname: '.hbs'
-    })
-);
-server.set('view engine', 'hbs'); //调用render函数时，自动添加hannlebars后缀  模板引擎
-server.use(notFound());
-// 模板引擎设置 END======================================================================================
+
+
+server.use(notFound());  // 404
 
 // Use default router
 server.use(router);
